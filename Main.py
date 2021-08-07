@@ -38,6 +38,10 @@ def asignacion_Variables(listaCaracteres):
     global nombreCurso
     global lista_Estudiantes_Punteos
     global lista_Parametros
+    
+    nombreCurso = ""
+    lista_Estudiantes_Punteos = []
+    lista_Parametros = []
     contador = 0
     nombreEntreComillas = False
     punteoEntreSignos = False
@@ -128,7 +132,6 @@ def crearReporte():
             reporte += "\n" + f"    El número de estudiantes que aprobaron es de: {apr()} "
         if i == "REP":
             reporte += "\n" + f"    El número de estudiantes que reprobaron es de: {rep()}"
-    print(reporte)
 
 #==========================================Funciones de los parametros===================================================
 
@@ -215,12 +218,232 @@ def desc(lista):
             elif i[1] < pivote:
                 derecha.append(i)
         #print(izquierda+["-"]+centro+["-"]+derecha)
-        return asc(izquierda)+centro+asc(derecha)
+        return desc(izquierda)+centro+desc(derecha)
     else:
         return lista
 
+#==========================================REPORTE EN HTML==========================================================
 
+#Función para crear un reporte del curso en formato html 
+def crearReporteHTML():
+    global nombreCurso
+    global lista_Estudiantes_Punteos
+    global lista_Parametros
 
+    reporteHtml = '''<!doctype html>
+        <html lang="en">
+
+        <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <!-- Bootstrap CSS -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+        <title>Reporte del curso</title>
+        </head>
+
+        <body style="background-color: lightseagreen;">
+        <div class="container-fluid container p-3 my-3 bg-dark text-white">
+        <div class="row">
+        <div class="col-12" style="text-align: center; ">
+            <h1>REPORTE DEL CURSO</h1>
+        </div>
+        </div>
+        </div>
+        <div class="container-fluid" style="background-color: rgb(255, 255, 255);">
+        <div class="row justify-content-md-center">
+        <div>
+            <h3>Nombre del curso: '''
+    reporteHtml += nombreCurso
+    reporteHtml += '''</h3>
+      </div>
+        </div>
+        <div class="row justify-content-md-center">
+      <div>
+        <h3>Numero de estudiantes en el curso: '''
+    reporteHtml += str(len(lista_Estudiantes_Punteos))
+    reporteHtml += '''</h3>
+      </div>
+     </div>
+     <div class="row justify-content-md-center">
+      <div class="col-md-auto">
+        <h2 style="text-decoration: underline tomato;">Listado de estudiantes</h2>
+      </div>
+        </div>
+        <div class="row justify-content-md-center">
+      <div class="col-md-auto">
+        <table class="table table-bordered table-striped text-center table-hover table-responsive"
+          style="text-align: center; width: 600px;">
+          <thead>
+            <tr class="table-dark">
+              <th>#</th>
+              <th>Estudiante</th>
+              <th>Punteo</th>
+            </tr>
+          </thead>
+          <tbody>'''
+
+    contador = 1
+    for i in lista_Estudiantes_Punteos:
+        if i[1] >= 61:
+            reporteHtml += f'''<tr>
+            <td class="table-success">{contador}</td>
+            <td class="table-success">{i[0]}</td>
+            <td class="table-info">{i[1]}</td>
+            </tr>'''
+        else:
+            reporteHtml += f'''<tr>
+            <td class="table-success">{contador}</td>
+            <td class="table-success">{i[0]}</td>
+            <td class="table-danger">{i[1]}</td>
+            </tr>'''
+        contador += 1
+
+    reporteHtml += '''
+          </tbody>
+        </table>
+      </div>
+     </div>
+     <div class="row justify-content-md-center">
+      <div class="col-md-auto">
+        <h2 style="text-decoration: underline tomato;">Operaciones solicitadas</h2>
+      </div>
+        </div>
+        '''
+    for i in lista_Parametros:
+        if i == "ASC":
+            reporteHtml += '''<div class="row justify-content-md-center">
+            <div class="col-md-auto">
+            <h2 style="text-decoration: underline slateblue;">Listado de estudiantes de forma ascendente</h2>
+             </div>
+            </div>
+            <div class="row justify-content-md-center">
+            <div class="col-md-auto">
+            <table class="table table-bordered table-striped text-center table-hover table-responsive"
+            style="text-align: center; width: 600px;">
+            <thead>
+            <tr class="table-dark">
+              <th>#</th>
+              <th>Estudiante</th>
+              <th>Punteo</th>
+            </tr>
+          </thead>
+          <tbody>'''
+
+            contador = 1
+            for i in asc(lista_Estudiantes_Punteos):
+                if i[1] >= 61:
+                    reporteHtml += f'''<tr>
+                <td class="table-success">{contador}</td>
+                <td class="table-success">{i[0]}</td>
+                <td class="table-info">{i[1]}</td>
+                </tr>'''
+                else:
+                    reporteHtml += f'''<tr>
+                <td class="table-success">{contador}</td>
+                <td class="table-success">{i[0]}</td>
+                <td class="table-danger">{i[1]}</td>
+                </tr>'''
+                contador += 1
+
+            reporteHtml += '''
+             </tbody>
+                </table>
+                </div>
+                </div>'''                
+        if i == "DESC":
+            reporteHtml += '''<div class="row justify-content-md-center">
+            <div class="col-md-auto">
+            <h2 style="text-decoration: underline slateblue;">Listado de estudiantes de forma descendente</h2>
+            </div>
+            </div>
+            <div class="row justify-content-md-center">
+            <div class="col-md-auto">
+            <table class="table table-bordered table-striped text-center table-hover table-responsive"
+            style="text-align: center; width: 600px;">
+            <thead>
+            <tr class="table-dark">
+              <th>#</th>
+              <th>Estudiante</th>
+              <th>Punteo</th>
+            </tr>
+          </thead>
+          <tbody>'''
+
+            contador = 1
+            for i in desc(lista_Estudiantes_Punteos):
+                if i[1] >= 61:
+                    reporteHtml += f'''<tr>
+            <td class="table-success">{contador}</td>
+            <td class="table-success">{i[0]}</td>
+            <td class="table-info">{i[1]}</td>
+            </tr>'''
+                else:
+                    reporteHtml += f'''<tr>
+            <td class="table-success">{contador}</td>
+            <td class="table-success">{i[0]}</td>
+            <td class="table-danger">{i[1]}</td>
+            </tr>'''
+                contador += 1
+
+            reporteHtml += '''
+          </tbody>
+            </table>
+            </div>
+            </div>'''
+        if i == "AVG":
+            reporteHtml += "\n" + f'''    <div class="row justify-content-md-center">
+            <div>
+            <h3>El promedio de las notas de todos los estudiantes es de: {avg()}</h3>
+            </div>
+            </div>'''
+        if i == "MIN":
+            reporteHtml += "\n" + f'''    <div class="row justify-content-md-center">
+            <div>
+            <h3>La nota minima del curso es: {min()[1]} y el estudiante con esa nota es: {min()[0]}</h3>
+            </div>
+            </div> '''
+        if i == "MAX":
+            reporteHtml += "\n" + f'''    <div class="row justify-content-md-center">
+            <div>
+            <h3>La nota maxima del curso es: {max()[1]} y el estudiante con esa nota es: {max()[0]}</h3>
+            </div>
+            </div> '''
+        if i == "APR":
+            reporteHtml += "\n" + f'''    <div class="row justify-content-md-center">
+            <div>
+            <h3>El numero de estudiantes que aprobaron es de: {apr()}</h3>
+            </div>
+            </div>  '''
+        if i == "REP":
+            reporteHtml += "\n" + f'''    <div class="row justify-content-md-center">
+            <div>
+            <h3>El numero de estudiantes que reprobaron es de: {rep()}</h3>
+            </div>
+            </div>'''
+    reporteHtml += '''
+        </div>
+        <div class="container-fluid container p-3 my-3 bg-dark text-white">
+        <div class="row">
+        <div class="col-12" style="text-align: center; ">
+        <h1></h1>
+        </div>
+        </div>
+        </div>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+        </body>
+
+        </html>'''
+    archivo = open("Reporte del curso.html","w")
+    archivo.write(reporteHtml)
+    archivo.close()
+
+#======================================================FUNCIÓN MAIN==================================================
 #Programa de inicio
 if __name__ == "__main__":
     while(True):
@@ -236,6 +459,8 @@ if __name__ == "__main__":
         try:
             opcion = int(input("Escoga una opción para continuar: "))
             if opcion == 1:
+                listaCaracteres = []
+
                 print("usted ha escogido la opción 1 Cargar archivo.")
                 input("Presione Enter para continuar....")
                 #Parte de la lectura del archivo.
@@ -283,6 +508,8 @@ if __name__ == "__main__":
                 input("Presione Enter para continuar....")
             elif opcion == 3:
                 print("usted ha escogido la opción 3 Exportar reporte.")
+                crearReporteHTML()
+                print("Exportación realizada con éxito!!!")
                 input("Presione Enter para continuar....")
             elif opcion == 4:                
                 print("usted ha escogido la opción 4 Salir.")
@@ -293,5 +520,6 @@ if __name__ == "__main__":
                 input("Presione Enter para continuar....")
         except Exception as e:
             print(f"Error ingrese una opción válida (número) {e}")
+            print("Error inesperado:", sys.exc_info()[0])
             input("Presione Enter para continuar....")
 
