@@ -1,6 +1,6 @@
 LENGUAJES_FORMALES = {
-<"Diego Mazariegos"; 95>,
-<"Megan Morales"; 89>,
+<"Diego Mazariegos"; 9>,
+<"Megan Morales"; 100>,
 <"Dannah Santos"; 91>,
 <"Giovanni Mazariegos"; 50>
 } ASC, DESC, AVG, MIN, MAX, APR, REP

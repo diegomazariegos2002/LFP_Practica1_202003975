@@ -103,12 +103,13 @@ def crearReporte():
     global reporte
 
     #Inicio del reporte
-    reporte = f'''                                              ========REPORTE DEL CURSO========
+    reporte = f'''                                              ========REPORTE DEL CURSO========                   
                                             Nombre del curso: {nombreCurso}
                                             Número de estudiantes en el curso: {len(lista_Estudiantes_Punteos)}
                                     ----------Listado de Estudiantes en el curso----------'''
     for i in lista_Estudiantes_Punteos:
-        reporte += "\n" + f'''                                                       {i[0]}'''
+        reporte += "\n" + f'''                                               
+                                               {i[0]}      {i[1]}'''
     #Parte de los parametros
     reporte += "\n" + "                                      -------------Operaciones requeridas-------------"
     for i in lista_Parametros:
@@ -447,8 +448,8 @@ def crearReporteHTML():
 #Programa de inicio
 if __name__ == "__main__":
     while(True):
-        #imprimiendo el menú.
-        print("Bienvenido Usuario")
+        #imprimiendo el menú.  
+        print("¡¡¡¡Bienvenido Usuario!!!!!")
         print('''===================MENÚ=================
         1. Cargar archivo
         2. Mostrar reporte en consola
@@ -511,15 +512,15 @@ if __name__ == "__main__":
                 crearReporteHTML()
                 print("Exportación realizada con éxito!!!")
                 input("Presione Enter para continuar....")
-            elif opcion == 4:                
+            elif opcion == 4:       
                 print("usted ha escogido la opción 4 Salir.")
-                input("Presione Enter para salir....")
+                input("Presione Enter para continuar....")
                 break
             else:
                 print("Ingrese una opción válida del menú.")
                 input("Presione Enter para continuar....")
         except Exception as e:
-            print(f"Error ingrese una opción válida (número) {e}")
-            print("Error inesperado:", sys.exc_info()[0])
+            print(f"Error ingrese una opción válida (número)")
+            # print("Error inesperado:", sys.exc_info()[0])
             input("Presione Enter para continuar....")
 

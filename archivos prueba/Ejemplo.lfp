@@ -1,0 +1,7 @@
+LENGUAJES_formales_ = {
+	< "Estudiante 01" ; 100 >,
+	<"Juan Perez" ; 50>,< "Estudiante 02";80 >,
+	<"Estudiante 03";45>,
+	<"NombreSinApellido"; 9>,
+	< "Muchos mas estudiantes...." ; 50 >
+} ASC,MIN, MAX,ASC, APR
