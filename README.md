@@ -9,3 +9,5 @@ palabras reservadas el tipo de reporte que se desean realizar. Dependiendo del t
 reporte solicitado se ejecutarán las distintas operaciones desarrolladas en el programa. El 
 programa también cuenta con opciones para la impresión de reportes ya sea mediante 
 consola o mediante archivos HTML.
+
+<p style="text-align: justify;">Párrafo con un texto</p>
